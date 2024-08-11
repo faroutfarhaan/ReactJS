@@ -15,7 +15,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
-import RestaurantMenu from "./components/Restaurantmenu";
+import RestaurantMenu from "./components/RestaurantMenu";
 // parcel is doing HMR Hot Module Reloading
 // using file watcher algorithm
 //parcel is a bundler

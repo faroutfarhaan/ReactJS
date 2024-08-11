@@ -2,6 +2,7 @@ import restaurantList from "./constants";
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer"; 
+import { FOODFIRE_API_URL } from "./constants";
 
 // what is state?
 // In the context of React, state refers to a way to store and manage data that can change over time within a component.
@@ -44,20 +45,63 @@ const Body = () => {
   // console.log(filteredRestaurants);
 
   //  the body page will render then use effect will fetch data afterwards
-  useEffect(() => {
-    fetchData();
-  }, []);
-  // useEffect  with empty array= useEffect is rendered only once
-  // no empty array-- renders everytime the component is re rendered
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+  // // useEffect  with empty array= useEffect is rendered only once
+  // // no empty array-- renders everytime the component is re rendered
 
-  const fetchData = async () => {
-    const fetchedData = await fetch(
-      "https://foodfire.onrender.com/api/restaurants?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING");
-    const json = await fetchedData.json();
-    console.log(json);
-    // optional chaining =?
-    setRestaurantsList(json?.data?.cards[4].card?.card?.gridElements?.infoWithStyle?.restaurants);
-  }; 
+  // const fetchData = async () => {
+  //   const fetchedData = await fetch(
+  //     "https://foodfire.onrender.com/api/restaurants?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING");
+  //   const json = await fetchedData.json();
+  //   console.log(json);
+  //   // optional chaining =?
+  //   setRestaurantsList(json?.data?.cards[4].card?.card?.gridElements?.infoWithStyle?.restaurants);
+  // }; 
+
+
+
+  useEffect(
+    ()=> {
+       fetchResData();
+    }, []
+ );
+ 
+ function checkJsonData(jsonData) {
+   
+   for (let i = 0; i < jsonData?.data?.cards?.length; i++) {
+    let  checkData =
+    jsonData?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle.restaurants;
+         console.log(jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle.restaurants,checkData);
+      if (checkData !== undefined) {
+          return checkData;
+        }
+   }
+   
+ }
+   const fetchResData = async () => {
+     // error handling using JS procedure of try and catch
+     // finally{} can be used in case of function which are
+     // supposed to return in try or catch part or both and u stll want something to execute in that function
+     try {
+       const response = await fetch(FOODFIRE_API_URL);
+       const JSON = await response.json();
+       console.log("THIS IS DATA BC",JSON);
+       // initialize checkJsonData() function to check Swiggy Restaurant data
+ 
+ 
+    // make functional call to checkJsonData()
+    const resData = checkJsonData(JSON);
+    console.log("This is resData BC",resData);
+    setRestaurantsList(resData);
+ 
+     } catch (error) {
+       console.log("menu ka data uthane me hag diye");
+     }
+   };
+
+
   
   // conditional rendering
   if(restaurantsList.length === 0 ){
