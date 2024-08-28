@@ -116,21 +116,21 @@ if(isOnline === false )
 }
   return (
     // whenever the state variable changes , react rerenders the whole component 
-    <> 
+    <div className="pt-24"> 
     
      
-      <div className="filter">
+      <div className="filter m-3 p-2">
       <input
           type="text"
-          placeholder="Search"
+          placeholder=" Search"
           value={searchText}
-          className="search-input"
+          className="search border border-solid border-black rounded-2xl"
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
           />
         <button
-          className="search-btn"
+          className="search-btn px-3 py-0.5 m-1 bg-blue-200 rounded-3xl"
           onClick={() => {
             
             // need to filter the data
@@ -142,7 +142,7 @@ if(isOnline === false )
           Search
         </button>
         <button
-          className="filterBTN"
+          className="filterBTN px-3 py-0.5 m-1 bg-blue-200 rounded-3xl"
           onClick={() => {
             const filteredData = restaurantsList.filter((restaurants) => 
               restaurants.info.avgRating > 4
@@ -153,7 +153,7 @@ if(isOnline === false )
           Top Restaurants
         </button>
       </div>
-      <div className="res_container">
+      <div className="res_container flex flex-wrap ml-20">
         {(filteredRestaurants.length>0?filteredRestaurants:restaurantsList)?.map((restaurants) => {
           return (
            <Link key={restaurants.info.id} to={"/restaurants/" + restaurants.info.id}>
@@ -165,7 +165,7 @@ if(isOnline === false )
         })}
       </div>
      
-    </>
+    </div>
   );
 };
 export default Body;

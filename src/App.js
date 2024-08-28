@@ -18,7 +18,7 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 
-const About = lazy( () => import("./components/About"));
+const About = lazy(() => import("./components/About"));
 // parcel is doing HMR Hot Module Reloading
 // using file watcher algorithm
 //parcel is a bundler
@@ -67,6 +67,7 @@ const AppLayout = () => (
   <>
     <Header />
     <Outlet />
+    <Footer/>
   </>
 );
 const appRouter = createBrowserRouter([
@@ -80,9 +81,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element:  <Suspense fallback={<h1>Loading....</h1>}>
-<About />
-        </Suspense>,
+        element: (
+          <Suspense fallback={<h1>Loading....</h1>}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
@@ -90,7 +93,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/restaurants/:resId",
-      element: <RestaurantMenu />,
+        element: <RestaurantMenu />,
       },
     ],
     errorElement: <Error />,

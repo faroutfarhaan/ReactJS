@@ -5,8 +5,8 @@ const Title = () => (
   <a href="/">
     <img
       alt="logo"
-      className="logo"
-      src="https://logos-world.net/wp-content/uploads/2020/11/Swiggy-Logo.png"
+      className="w-12 "
+      src="https://raw.githubusercontent.com/chetannada/Namaste-React/main/public/Images/foodFireLogo.png"
     />
   </a>
 );
@@ -18,16 +18,16 @@ const Header = () => {
 //  hence a fresh const state variable will created with value logout and hence it will get displayed
 // in this way the principle of JS of const variable is preserved
   return (
-    <div className="header">
+    <div className="flex justify-between p-5 bg-blue-100 shadow-lg mb-4 fixed top-0 left-0 right-0 z-50">
       <Title />
-      <div className="nav-items">
-        <ul>
+      <div className="flex items-center">
+        <ul className="flex p-5 ">
           {/* the link tag is provided by react router dom */}
-          <li> Online Status:  {onlineStatus ? "🟢": "🔴"} </li>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li>cart</li>
+          <li className="px-5"> Online Status:  {onlineStatus ? "🟢": "🔴"} </li>
+          <li className="px-5"><Link to="/">Home</Link></li>
+          <li className="px-5"><Link to="/contact">Contact</Link></li>
+          <li className="px-5"><Link to="/about">About</Link></li>
+          <li className="px-5">Cart</li>
           <button className="loginBTN" onClick={
             ()=>{ if(BTNname === "Login"){ setBTNname("Logout")}
                else {setBTNname("Login")}

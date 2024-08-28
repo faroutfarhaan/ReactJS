@@ -5,14 +5,14 @@
 }) => {
     
     return (
-     <div className="card">
-      <img className="cardImg" src={IMG_CDN_URL+cloudinaryImageId} alt="not rendered yet"/>
-      <h2>{name}</h2>
-      <h3>{cuisines.join(", ")}</h3>
-      <h4>{areaName}</h4>
-     <h3>{avgRating}⭐</h3> 
-      <h4>{sla?.lastMileTravelString ?? "2.0 km"}</h4>
-      <h3>{costForTwo ?? "₹400 for two."}</h3>
+     <div className="bg-blue-50 rounded-xl p-2 m-1 w-[270px] hover:bg-blue-300">
+      <img className="cardImg rounded-xl" src={IMG_CDN_URL+cloudinaryImageId} alt="not rendered yet"/>
+      <h2 className="font-bold font-sans py-2">{name}</h2>
+     <h3>{avgRating}⭐ | {costForTwo ?? "₹400 for two."}</h3> 
+      <p className="font-light font-serif">{cuisines.join(", ")}</p>
+      <p>{areaName} | {sla?.lastMileTravelString ?? "2.0 km"}</p>
+     
+     
        
      </div>
     )
