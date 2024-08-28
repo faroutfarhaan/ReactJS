@@ -103,9 +103,10 @@ const Body = () => {
      }
    };
 
-if(isOnline === false ) {
-  return <h1>Looks like you are Offline! Check your internet connection.</h1>
-}
+if(isOnline === false ) 
+  return ( <h1>Looks like you are Offline! Check your internet connection.</h1>
+  );
+
   
   // conditional rendering
   if(restaurantsList.length === 0 ){

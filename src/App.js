@@ -1,6 +1,6 @@
 // React.createElement=> Object=>HTML(DOM)
 // JSX ES6 REACT are not mandatory to create app
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 // default import
 import Header from "./components/Header";
@@ -13,10 +13,12 @@ import Footer from "./components/Footer";
 import Body from "./components/Body";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import About from "./components/About";
+// import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
+
+const About = lazy( () => import("./components/About"));
 // parcel is doing HMR Hot Module Reloading
 // using file watcher algorithm
 //parcel is a bundler
@@ -78,7 +80,9 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element:  <Suspense fallback={<h1>Loading....</h1>}>
+<About />
+        </Suspense>,
       },
       {
         path: "/contact",
