@@ -21,6 +21,7 @@ const Header = () => {
       <Title />
       <div className="nav-items">
         <ul>
+          {/* the link tag is provided by react router dom */}
           <li><Link to="/">Home</Link></li>
           <li><Link to="/contact">Contact</Link></li>
           <li><Link to="/about">About</Link></li>

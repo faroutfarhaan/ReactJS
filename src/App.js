@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Body from "./components/Body";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
@@ -82,10 +83,11 @@ const appRouter = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
-      },{
-        path:"/restaurants/:resID"
-        ,element:<RestaurantMenu/>,
-      }
+      },
+      {
+        path: "/restaurants/:resId",
+      element: <RestaurantMenu />,
+      },
     ],
     errorElement: <Error />,
   },

@@ -1,5 +1,5 @@
- import { IMG_CDN_URL } from "./constants";
- import restaurantList from "./constants" 
+ import { IMG_CDN_URL } from "./utils/constants";
+ import restaurantList from "./utils/constants" 
  const RestaurantCard= ({
     name,cloudinaryImageId,cuisines , avgRating, costForTwo,sla , areaName
 }) => {

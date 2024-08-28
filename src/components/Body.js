@@ -1,13 +1,14 @@
-import restaurantList from "./constants";
+import restaurantList from "./utils/constants";
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer"; 
-import { FOODFIRE_API_URL } from "./constants";
-
+import { FOODFIRE_API_URL } from "./utils/constants";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "./utils/Hooks/useOnlineStatus";
 // what is state?
 // In the context of React, state refers to a way to store and manage data that can change over time within a component.
 // When the state of a component changes, React re-renders the component to reflect the new state.
-//  State is often used to keep track of user input, form data, or any dynamic information that needs to be displayed in the UI.
+//  State is often used to keep track of user input, form data, or any dynamic iformation that needs to be displayed in the UI.
 
 //what is react hooks? functions
 // React Hooks are functions that let you "hook into" React state and lifecycle features from function components.
@@ -42,6 +43,7 @@ const Body = () => {
   const [searchText, setSearchText] = useState(); //returns =[variable name , function to update it]
   const [restaurantsList, setRestaurantsList] = useState([]);
   const [filteredRestaurants,setFilteredRestaurants]=useState([]);
+  const isOnline = useOnlineStatus;
   // console.log(filteredRestaurants);
 
   //  the body page will render then use effect will fetch data afterwards
@@ -73,7 +75,7 @@ const Body = () => {
    for (let i = 0; i < jsonData?.data?.cards?.length; i++) {
     let  checkData =
     jsonData?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle.restaurants;
-         console.log(jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle.restaurants,checkData);
+        //  console.log(jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle.restaurants,checkData);
       if (checkData !== undefined) {
           return checkData;
         }
@@ -93,15 +95,17 @@ const Body = () => {
  
     // make functional call to checkJsonData()
     const resData = checkJsonData(JSON);
-    console.log("This is resData BC",resData);
+    // console.log("This is resData BC",resData);
     setRestaurantsList(resData);
  
      } catch (error) {
-       console.log("menu ka data uthane me hag diye");
+       console.log("restaurants ka data uthane me hag diye");
      }
    };
 
-
+if(isOnline === false ) {
+  return <h1>Looks like you are Offline! Check your internet connection.</h1>
+}
   
   // conditional rendering
   if(restaurantsList.length === 0 ){
@@ -151,8 +155,12 @@ const Body = () => {
       <div className="res_container">
         {(filteredRestaurants.length>0?filteredRestaurants:restaurantsList)?.map((restaurants) => {
           return (
-            <RestaurantCard {...restaurants.info} key={restaurants.info.id} />
-          );
+           <Link key={restaurants.info.id} to={"/restaurants/" + restaurants.info.id}>
+             <RestaurantCard {...restaurants.info}  />
+            </Link>    
+            // this Link tag is provided by react-router-dom 
+            // it gets converted into an anchor tag in React Dom 
+                 );
         })}
       </div>
      

@@ -1,57 +1,23 @@
-import {
-  FOODFIRE_MENU_API_URL,
-  FOODFIRE_API_URL,
-  MENU_ITEM_TYPE_KEY,
-  RESTAURANT_TYPE_KEY,
-  ITEM_IMG_CDN_URL,
-} from "./constants";
-import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
+import { useParams } from "react-router-dom"; // import useParams for read `resId`
+import useRestaurantMenu from "./utils/Hooks/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-   
-   const [resPageList , setResPageList]= useState([]);
+  const resId = useParams();
+  const {resPageList , menuItems} = useRestaurantMenu(resId);
 
-
-useEffect(
-   ()=> {
-      fetchResData();
-   }, []
-);
-
-  const fetchResData = async () => {
-    // error handling using JS procedure of try and catch
-    // finally{} can be used in case of function which are
-    // supposed to return in try or catch part or both and u stll want something to execute in that function
-    try {
-      const response = await fetch("FOODFIRE_API_URL");
-      const JSON = await response.json();
-      console.log(JSON);
-      // initialize checkJsonData() function to check Swiggy Restaurant data
-      function checkJsonData(jsonData) {
-        for (let i = 0; i < jsonData?.data?.cards?.length; i++) {
-          const checkData =
-            jsonData?.data?.cards[i]?.card?.card?.getElements?.infoWithStyles
-              ?.restaurants;
-        }
-        if (checkData != undefined) {
-          return checkdata;
-        }
-      }
-
-
-   // make functional call to checkJsonData()
-   const resData = checkJsonData(JSON);
-           
-    setResPageList(resData);
-
-    } catch (error) {
-      console.log("menu ka data uthane me hag diye");
-    }
-  };
+  if (resPageList === 0) return Shimmer;
   return (
     <>
       <div>
-        <h2></h2>
+        <h2>{resPageList?.name} </h2>
+        <p>
+          ⭐{resPageList?.avgRatingString}({resPageList?.totalRatingsString}), {resPageList?.costForTwoMessage}
+        </p>
+        <p>  {resPageList?.cuisines?.join(", ") }</p>
+        <p><strong>Outlet</strong> {resPageList?.areaName}</p>
+        <p>{resPageList?.sla?.slaString}</p>
+        <p>{resPageList?.sla?.lastMileTravel}kms | Delivery charges: {resPageList?.feeDetails?.totalFee/100} </p>
       </div>
     </>
   );
