@@ -62,6 +62,9 @@ const About = lazy(() => import("./components/About"));
 // React reconcilliation is bridge btwn actual DOM and virtualDOM
 // dif algorithm is used for this process
 
+// In React Router DOM, an Outlet is a component used to render child routes within a parent route.
+//  It's a placeholder for where nested routes will appear in your UI. When you define nested routes, 
+// React Router uses the Outlet component to indicate where the child route's content should be displayed.
 const AppLayout = () => (
   //  /*React.Fragment*/
   <>
@@ -70,6 +73,9 @@ const AppLayout = () => (
     <Footer/>
   </>
 );
+//  the App Router in the latest versions of React Router DOM (v6.4 and above) helps manage routes
+//  more efficiently by combining data fetching and route rendering in one place.
+//  It makes things like loading data, handling forms, and showing error messages easier to manage.
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -107,7 +113,10 @@ const appRouter = createBrowserRouter([
   //     element:<Contact/>,
   //   }
 ]);
+// the root refers to the main entry point 
+// where your React application is rendered into the DOM (Document Object Model) of the web page.
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(heading);
 root.render(<RouterProvider router={appRouter} />);
 // root.render(<AppLayout/>);
+//

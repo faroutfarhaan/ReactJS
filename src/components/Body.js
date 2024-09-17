@@ -27,7 +27,7 @@ function filterData(searchText, restaurantsList) {
   
   const filteredData = restaurantsList.filter((restaurants) => {
     // console.log(restaurants.info.name.toLowerCase().includes(searchText.toLowerCase()));
-   return restaurants.info.name.toLowerCase().includes(searchText.toLowerCase());
+   return restaurants?.info?.name?.toLowerCase().includes(searchText?.toLowerCase());
   });
   // console.log(filterData);
   return filteredData;
@@ -118,19 +118,20 @@ if(isOnline === false )
     // whenever the state variable changes , react rerenders the whole component 
     <div className="pt-24"> 
     
-     
+      <div className="flex justify-center">
       <div className="filter m-3 p-2">
       <input
           type="text"
           placeholder=" Search"
           value={searchText}
-          className="search border border-solid border-black rounded-2xl"
+          className="search px-2 py-1 border border-solid border-black rounded-2xl"
           onChange={(e) => {
             setSearchText(e.target.value);
+            
           }}
           />
         <button
-          className="search-btn px-3 py-0.5 m-1 bg-blue-200 rounded-3xl"
+          className="search-btn px-3 py-1.5 m-1 bg-blue-200 rounded-3xl"
           onClick={() => {
             
             // need to filter the data
@@ -142,7 +143,7 @@ if(isOnline === false )
           Search
         </button>
         <button
-          className="filterBTN px-3 py-0.5 m-1 bg-blue-200 rounded-3xl"
+          className="filterBTN px-3 py-1.5 m-1 bg-blue-200 rounded-3xl"
           onClick={() => {
             const filteredData = restaurantsList.filter((restaurants) => 
               restaurants.info.avgRating > 4
@@ -152,6 +153,7 @@ if(isOnline === false )
         >
           Top Restaurants
         </button>
+      </div>
       </div>
       <div className="res_container flex flex-wrap ml-20">
         {(filteredRestaurants.length>0?filteredRestaurants:restaurantsList)?.map((restaurants) => {
